@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="relative bg-gradient-to-br from-eco-light to-white pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div className="relative bg-gradient-to-br from-eco-light to-white min-h-screen flex items-center">
+      <div className="absolute inset-0 bg-[url('/leaf-pattern.svg')] opacity-5"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative">
         <div className="text-center">
+          <div className="flex justify-center mb-8">
+            <Recycle className="h-20 w-20 text-eco-primary animate-float" />
+          </div>
           <h1 className="text-4xl md:text-6xl font-bold text-eco-primary mb-6">
             Transform Your Waste
             <br />
@@ -17,7 +21,7 @@ const Hero = () => {
           </p>
           <Link
             to="/login"
-            className="inline-flex items-center px-6 py-3 bg-eco-primary text-white rounded-lg hover:bg-eco-dark transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-eco-primary text-white rounded-lg hover:bg-eco-dark transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
           >
             Get Started
             <ArrowRight className="ml-2" size={20} />
@@ -25,7 +29,7 @@ const Hero = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mt-16">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all">
             <div className="w-12 h-12 bg-eco-light rounded-full flex items-center justify-center mb-4">
               <Recycle className="text-eco-primary" size={24} />
             </div>
@@ -35,7 +39,7 @@ const Hero = () => {
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all">
             <div className="w-12 h-12 bg-eco-light rounded-full flex items-center justify-center mb-4">
               <Leaf className="text-eco-primary" size={24} />
             </div>
@@ -45,7 +49,7 @@ const Hero = () => {
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all">
             <div className="w-12 h-12 bg-eco-light rounded-full flex items-center justify-center mb-4">
               <DollarSign className="text-eco-primary" size={24} />
             </div>
