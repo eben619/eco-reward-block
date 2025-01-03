@@ -16,7 +16,7 @@ const Hero = () => {
             and make a positive impact on the environment.
           </p>
           <Link
-            to="/dashboard"
+            to="/login"
             className="inline-flex items-center px-6 py-3 bg-eco-primary text-white rounded-lg hover:bg-eco-dark transition-colors"
           >
             Get Started
