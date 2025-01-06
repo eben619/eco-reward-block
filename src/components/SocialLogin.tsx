@@ -1,58 +1,42 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
-import Capsule from "@usecapsule/web-sdk";
+
+// Simple mock social login response for development
+const mockSocialLogin = async (provider: string) => {
+  // Simulated response delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  // Mock user data
+  return {
+    success: true,
+    data: {
+      id: `mock-${provider}-${Date.now()}`,
+      email: `mock-${provider}@example.com`,
+      name: `Mock ${provider} User`,
+      picture: "https://via.placeholder.com/150",
+    }
+  };
+};
 
 const SocialLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [capsuleInstance, setCapsuleInstance] = useState<Capsule | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Initialize Capsule
-    const initCapsule = async () => {
-      try {
-        const capsule = new Capsule({
-          apiKey: process.env.CAPSULE_API_KEY as string,
-          environment: "production",
-        });
-        await capsule.init();
-        setCapsuleInstance(capsule);
-      } catch (error) {
-        console.error("Failed to initialize Capsule:", error);
-        toast({
-          title: "Error",
-          description: "Failed to initialize social login. Please try again later.",
-          variant: "destructive",
-        });
-      }
-    };
-
-    initCapsule();
-  }, []);
-
   const handleSocialLogin = async (provider: string) => {
-    if (!capsuleInstance) {
-      toast({
-        title: "Error",
-        description: "Social login is not initialized yet. Please try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsLoading(true);
     try {
-      const response = await capsuleInstance.socialLogin(provider);
+      // Using mock social login for development
+      const response = await mockSocialLogin(provider);
       
       if (response.success) {
-        // Create a Supabase session using the Capsule user data
+        // Create a Supabase session using the mock user data
         const { error } = await supabase.auth.signUp({
           email: response.data.email,
-          password: response.data.id, // Using the Capsule user ID as a secure password
+          password: response.data.id, // Using the mock ID as a password
           options: {
             data: {
               full_name: response.data.name,
