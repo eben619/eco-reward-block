@@ -19,4 +19,10 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    'process.env': {
+      CAPSULE_API_KEY: JSON.stringify(process.env.CAPSULE_API_KEY),
+    },
+    global: 'globalThis',
+  },
 }));

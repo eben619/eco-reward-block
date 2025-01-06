@@ -8,17 +8,19 @@ import Capsule from "@usecapsule/web-sdk";
 
 const SocialLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [capsuleInstance, setCapsuleInstance] = useState<Capsule | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize Capsule
     const initCapsule = async () => {
       try {
-        const capsule = new Capsule();
-        await capsule.init({
+        const capsule = new Capsule({
           apiKey: process.env.CAPSULE_API_KEY as string,
           environment: "production",
         });
+        await capsule.init();
+        setCapsuleInstance(capsule);
       } catch (error) {
         console.error("Failed to initialize Capsule:", error);
         toast({
@@ -33,10 +35,18 @@ const SocialLogin = () => {
   }, []);
 
   const handleSocialLogin = async (provider: string) => {
+    if (!capsuleInstance) {
+      toast({
+        title: "Error",
+        description: "Social login is not initialized yet. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const capsule = new Capsule();
-      const response = await capsule.auth.loginWithSocial(provider);
+      const response = await capsuleInstance.socialLogin(provider);
       
       if (response.success) {
         // Create a Supabase session using the Capsule user data
