@@ -4,7 +4,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
-import { Capsule } from "@usecapsule/web-sdk";
+import Capsule from "@usecapsule/web-sdk";
 
 const SocialLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
