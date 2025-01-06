@@ -1,0 +1,32 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { Truck } from "lucide-react";
+
+const RequestPickup = () => {
+  return (
+    <div className="min-h-screen pt-20 bg-eco-light">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center gap-3 mb-8">
+          <Truck className="h-8 w-8 text-eco-primary" />
+          <h1 className="text-4xl font-bold text-eco-primary">Request Pickup</h1>
+        </div>
+        
+        <Card className="overflow-hidden">
+          <CardContent className="p-0">
+            <img
+              src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
+              alt="Request Pickup Placeholder"
+              className="w-full h-[400px] object-cover"
+            />
+            <div className="p-6">
+              <p className="text-lg text-muted-foreground">
+                Schedule your waste pickup service with ease. Our efficient collection system is being developed to serve you better.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default RequestPickup;

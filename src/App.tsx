@@ -10,6 +10,9 @@ import Index from "./pages/Index";
 import Sort from "./pages/Sort";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import SortingGuide from "./pages/SortingGuide";
+import RequestPickup from "./pages/RequestPickup";
+import MyDashboard from "./pages/MyDashboard";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,6 +62,39 @@ const App = () => {
                   <>
                     <Navbar />
                     <Dashboard />
+                  </>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/sorting-guide"
+              element={
+                <ProtectedRoute>
+                  <>
+                    <Navbar />
+                    <SortingGuide />
+                  </>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/request-pickup"
+              element={
+                <ProtectedRoute>
+                  <>
+                    <Navbar />
+                    <RequestPickup />
+                  </>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-dashboard"
+              element={
+                <ProtectedRoute>
+                  <>
+                    <Navbar />
+                    <MyDashboard />
                   </>
                 </ProtectedRoute>
               }
