@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Newspaper, GamepadIcon } from "lucide-react";
+import { MapPin, Newspaper } from "lucide-react";
+import EcoGame from "./EcoGame";
 
 const HomeSection = () => {
   return (
@@ -12,7 +13,7 @@ const HomeSection = () => {
         />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -41,21 +42,11 @@ const HomeSection = () => {
             </div>
           </CardContent>
         </Card>
+      </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <GamepadIcon className="h-5 w-5" />
-              Eco Game
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              Test your recycling knowledge with our interactive game.
-              (Coming soon)
-            </p>
-          </CardContent>
-        </Card>
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold text-eco-primary mb-6">EcoSort Challenge</h2>
+        <EcoGame />
       </div>
     </div>
   );

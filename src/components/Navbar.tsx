@@ -7,13 +7,16 @@ const Navbar = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: "/dashboard", label: "Home", icon: <Home className="w-5 h-5" /> },
-    { path: "/sort", label: "Sorting Guide", icon: <Recycle className="w-5 h-5" /> },
-    { path: "/pickup", label: "Request Pickup", icon: <Truck className="w-5 h-5" /> },
-    { path: "/profile", label: "My Dashboard", icon: <User className="w-5 h-5" /> },
+    { path: "/dashboard", hash: "", label: "Home", icon: <Home className="w-5 h-5" /> },
+    { path: "/dashboard#sorting", hash: "sorting", label: "Sorting Guide", icon: <Recycle className="w-5 h-5" /> },
+    { path: "/dashboard#pickup", hash: "pickup", label: "Request Pickup", icon: <Truck className="w-5 h-5" /> },
+    { path: "/dashboard#profile", hash: "profile", label: "My Dashboard", icon: <User className="w-5 h-5" /> },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (hash: string) => {
+    const currentHash = location.hash.replace("#", "") || "";
+    return currentHash === hash;
+  };
 
   return (
     <nav className="bg-eco-primary shadow-lg fixed w-full z-50">
@@ -30,10 +33,10 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => (
               <Link
-                key={item.path}
-                to={item.path}
+                key={item.path + item.hash}
+                to={item.path + (item.hash ? `#${item.hash}` : "")}
                 className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(item.path)
+                  isActive(item.hash)
                     ? "bg-eco-dark text-white"
                     : "text-eco-light hover:bg-eco-dark/20 hover:text-white"
                 }`}
@@ -63,10 +66,10 @@ const Navbar = () => {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link
-                key={item.path}
-                to={item.path}
+                key={item.path + item.hash}
+                to={item.path + (item.hash ? `#${item.hash}` : "")}
                 className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive(item.path)
+                  isActive(item.hash)
                     ? "bg-eco-dark text-white"
                     : "text-eco-light hover:bg-eco-dark/20 hover:text-white"
                 }`}
