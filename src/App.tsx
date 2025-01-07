@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Capsule } from "@usecapsule/web-sdk";
+import Capsule from "@usecapsule/web-sdk";
 import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Sort from "./pages/Sort";
@@ -14,7 +14,7 @@ import SortingGuide from "./pages/SortingGuide";
 import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
 
-const capsule = new Capsule("YOUR_CAPSULE_API_KEY");
+const capsule = new Capsule(process.env.CAPSULE_API_KEY);
 
 const queryClient = new QueryClient({
   defaultOptions: {
