@@ -14,7 +14,10 @@ import SortingGuide from "./pages/SortingGuide";
 import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
 
-const capsule = new Capsule(process.env.CAPSULE_API_KEY);
+const capsule = new Capsule({
+  env: "production",
+  apiKey: process.env.CAPSULE_API_KEY || "",
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {

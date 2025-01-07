@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import Capsule from "@usecapsule/web-sdk";
 
-const capsule = new Capsule(process.env.CAPSULE_API_KEY);
+const capsule = new Capsule({
+  env: "production",
+  apiKey: process.env.CAPSULE_API_KEY || "",
+});
 
 const SocialLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
