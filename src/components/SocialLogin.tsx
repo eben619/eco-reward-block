@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import Capsule from "@usecapsule/web-sdk";
 
 const capsule = new Capsule({
-  environment: "production",
+  environment: "production" as const,
   apiKey: process.env.CAPSULE_API_KEY || "",
 });
 
@@ -17,7 +17,7 @@ const SocialLogin = () => {
   const handleSocialLogin = async (provider: string) => {
     setIsLoading(true);
     try {
-      const response = await capsule.signIn({
+      const response = await capsule.auth.signIn({
         provider: provider as "google" | "twitter",
       });
 
