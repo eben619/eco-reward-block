@@ -2,25 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { Capsule } from "@usecapsule/web-sdk";
 
-// Simple mock social login response for development
-const mockSocialLogin = async (provider: string) => {
-  // Simulated response delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Mock user data
-  return {
-    success: true,
-    data: {
-      id: `mock-${provider}-${Date.now()}`,
-      email: `mock-${provider}@example.com`,
-      name: `Mock ${provider} User`,
-      picture: "https://via.placeholder.com/150",
-    }
-  };
-};
+const capsule = new Capsule("YOUR_CAPSULE_API_KEY");
 
 const SocialLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,24 +14,11 @@ const SocialLogin = () => {
   const handleSocialLogin = async (provider: string) => {
     setIsLoading(true);
     try {
-      // Using mock social login for development
-      const response = await mockSocialLogin(provider);
-      
+      const response = await capsule.auth.signIn({
+        provider: provider as "google" | "twitter",
+      });
+
       if (response.success) {
-        // Create a Supabase session using the mock user data
-        const { error } = await supabase.auth.signUp({
-          email: response.data.email,
-          password: response.data.id, // Using the mock ID as a password
-          options: {
-            data: {
-              full_name: response.data.name,
-              avatar_url: response.data.picture,
-            },
-          },
-        });
-
-        if (error) throw error;
-
         toast({
           title: "Success",
           description: "Successfully logged in!",

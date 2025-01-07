@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { Capsule } from "@usecapsule/web-sdk";
 import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Sort from "./pages/Sort";
@@ -13,6 +13,8 @@ import Login from "./pages/Login";
 import SortingGuide from "./pages/SortingGuide";
 import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
+
+const capsule = new Capsule("YOUR_CAPSULE_API_KEY");
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,15 +29,16 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const checkAuth = async () => {
+      const session = await capsule.auth.getSession();
+      setIsAuthenticated(!!session);
+    };
+
+    checkAuth();
+
+    capsule.auth.onAuthStateChange((session) => {
       setIsAuthenticated(!!session);
     });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setIsAuthenticated(!!session);
-    });
-
-    return () => subscription.unsubscribe();
   }, []);
 
   if (isAuthenticated === null) {
