@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Camera, Brain, MessageSquare, Video } from "lucide-react";
+import { Camera, MessageSquare, Video, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Sort = () => {
   const videoGuides = [
@@ -64,12 +65,12 @@ const Sort = () => {
                 <Camera className="h-6 w-6" />
                 AI Image Recognition
               </h2>
-              <div className="text-center p-6 border-2 border-dashed rounded-lg">
+              <div className="text-center p-6 border-2 border-dashed rounded-lg hover:border-primary transition-colors cursor-pointer">
                 <Camera className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <p className="text-muted-foreground">
-                  Take a photo of your waste item to identify the correct disposal method.
-                  (Coming soon)
+                  Take or upload a photo of your waste item to identify the correct disposal method
                 </p>
+                <Button className="mt-4">Upload Image</Button>
               </div>
             </CardContent>
           </Card>
@@ -89,13 +90,14 @@ const Sort = () => {
                     </div>
                   </div>
                   <div className="mt-4 flex gap-2">
-                    <input
+                    <Input
                       type="text"
-                      placeholder="Type your question..."
-                      className="flex-1 rounded-md border p-2"
-                      disabled
+                      placeholder="Ask about waste sorting..."
+                      className="flex-1"
                     />
-                    <Button disabled>Send</Button>
+                    <Button>
+                      <Send className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               </div>

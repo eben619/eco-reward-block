@@ -1,5 +1,4 @@
 import HomeSection from "@/components/dashboard/HomeSection";
-import SortingGuide from "@/components/dashboard/SortingGuide";
 import RequestPickup from "@/components/dashboard/RequestPickup";
 import UserDashboard from "@/components/dashboard/UserDashboard";
 import { useLocation } from "react-router-dom";
@@ -10,8 +9,6 @@ const Dashboard = () => {
 
   const renderContent = () => {
     switch (hash) {
-      case "sorting":
-        return <SortingGuide />;
       case "pickup":
         return <RequestPickup />;
       case "profile":

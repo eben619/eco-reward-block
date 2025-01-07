@@ -14,10 +14,7 @@ import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
 
 // Initialize Capsule with the API key directly for debugging
-const capsule = new Capsule({
-  apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456", // Replace with your actual API key
-  environment: "development",
-});
+const capsule = new Capsule("pk_test_qwertyuiopasdfghjklzxcvbnm123456");
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +31,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const session = await capsule.auth.getSession();
+        const session = await capsule.getSession();
         setIsAuthenticated(!!session);
       } catch (error) {
         console.error("Auth check error:", error);
@@ -44,7 +41,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
     checkAuth();
 
-    capsule.auth.onAuthStateChange((session) => {
+    capsule.onAuthStateChange((session) => {
       setIsAuthenticated(!!session);
     });
   }, []);
