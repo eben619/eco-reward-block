@@ -10,13 +10,13 @@ import Index from "./pages/Index";
 import Sort from "./pages/Sort";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import SortingGuide from "./pages/SortingGuide";
 import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
 
+// Initialize Capsule with the API key directly for debugging
 const capsule = new Capsule({
-  environment: "production" as const,
-  apiKey: process.env.CAPSULE_API_KEY || "",
+  apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456", // Replace with your actual API key
+  environment: "development",
 });
 
 const queryClient = new QueryClient({
@@ -78,12 +78,12 @@ const App = () => {
               }
             />
             <Route
-              path="/sorting-guide"
+              path="/sort"
               element={
                 <ProtectedRoute>
                   <>
                     <Navbar />
-                    <SortingGuide />
+                    <Sort />
                   </>
                 </ProtectedRoute>
               }
@@ -106,17 +106,6 @@ const App = () => {
                   <>
                     <Navbar />
                     <MyDashboard />
-                  </>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/sort"
-              element={
-                <ProtectedRoute>
-                  <>
-                    <Navbar />
-                    <Sort />
                   </>
                 </ProtectedRoute>
               }

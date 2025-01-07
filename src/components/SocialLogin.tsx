@@ -6,8 +6,8 @@ import { Loader2 } from "lucide-react";
 import Capsule from "@usecapsule/web-sdk";
 
 const capsule = new Capsule({
-  environment: "production" as const,
-  apiKey: process.env.CAPSULE_API_KEY || "",
+  apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456", // Replace with your actual API key
+  environment: "development",
 });
 
 const SocialLogin = () => {
