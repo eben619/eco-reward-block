@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import Capsule from "@usecapsule/web-sdk";
 
-const capsule = new Capsule("pk_test_qwertyuiopasdfghjklzxcvbnm123456");
+// Initialize Capsule with test API key
+const capsule = new Capsule("pk_test_qwertyuiopasdfghjklzxcvbnm123456", {
+  environment: "development"
+});
 
 const SocialLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,17 +17,16 @@ const SocialLogin = () => {
   const handleSocialLogin = async (provider: string) => {
     setIsLoading(true);
     try {
-      const response = await capsule.signIn({
+      await capsule.auth.signIn({
         provider: provider as "google" | "twitter",
       });
 
-      if (response.success) {
-        toast({
-          title: "Success",
-          description: "Successfully logged in!",
-        });
-        navigate("/dashboard");
-      }
+      // The session will be automatically handled by the onAuthStateChange listener in App.tsx
+      toast({
+        title: "Success",
+        description: "Successfully logged in!",
+      });
+      navigate("/dashboard");
     } catch (error) {
       console.error("Social login error:", error);
       toast({
