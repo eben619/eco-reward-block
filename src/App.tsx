@@ -15,7 +15,7 @@ import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
 
 const capsule = new Capsule({
-  env: "production",
+  environment: "production",
   apiKey: process.env.CAPSULE_API_KEY || "",
 });
 
@@ -33,13 +33,18 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const session = await capsule.auth.getSession();
-      setIsAuthenticated(!!session);
+      try {
+        const session = await capsule.getSession();
+        setIsAuthenticated(!!session);
+      } catch (error) {
+        console.error("Auth check error:", error);
+        setIsAuthenticated(false);
+      }
     };
 
     checkAuth();
 
-    capsule.auth.onAuthStateChange((session) => {
+    capsule.onAuthStateChange((session) => {
       setIsAuthenticated(!!session);
     });
   }, []);
