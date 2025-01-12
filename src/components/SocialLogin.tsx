@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import Capsule from "@usecapsule/web-sdk";
 
-// Initialize Capsule with test API key
-const capsule = new Capsule("pk_test_qwertyuiopasdfghjklzxcvbnm123456", {
-  environment: "development"
+// Initialize Capsule correctly with environment first, then API key in options
+const capsule = new Capsule("development", {
+  apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456"
 });
 
 const SocialLogin = () => {
@@ -17,7 +17,7 @@ const SocialLogin = () => {
   const handleSocialLogin = async (provider: string) => {
     setIsLoading(true);
     try {
-      await capsule.auth.signIn({
+      await capsule.signIn({
         provider: provider as "google" | "twitter",
       });
 
