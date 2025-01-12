@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import Capsule from "@usecapsule/web-sdk";
 
-// Initialize Capsule correctly with environment first, then API key in options
-const capsule = new Capsule("development", {
+// Initialize Capsule with staging environment and API key
+const capsule = new Capsule("staging", {
   apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456"
 });
 
@@ -17,11 +17,10 @@ const SocialLogin = () => {
   const handleSocialLogin = async (provider: string) => {
     setIsLoading(true);
     try {
-      await capsule.signIn({
+      await capsule.authenticate({
         provider: provider as "google" | "twitter",
       });
 
-      // The session will be automatically handled by the onAuthStateChange listener in App.tsx
       toast({
         title: "Success",
         description: "Successfully logged in!",

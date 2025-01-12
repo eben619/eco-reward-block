@@ -13,8 +13,8 @@ import Login from "./pages/Login";
 import RequestPickup from "./pages/RequestPickup";
 import MyDashboard from "./pages/MyDashboard";
 
-// Initialize Capsule correctly with environment first, then API key in options
-const capsule = new Capsule("development", {
+// Initialize Capsule with staging environment and API key
+const capsule = new Capsule("staging", {
   apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456"
 });
 
@@ -33,7 +33,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const session = await capsule.getSession();
+        const session = await capsule.getCurrentSession();
         setIsAuthenticated(!!session);
       } catch (error) {
         console.error("Auth check error:", error);
@@ -43,9 +43,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
     checkAuth();
 
-    capsule.onAuthStateChange((session) => {
-      setIsAuthenticated(!!session);
+    const unsubscribe = capsule.listenToAuthEvents((event) => {
+      setIsAuthenticated(!!event.session);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   if (isAuthenticated === null) {
