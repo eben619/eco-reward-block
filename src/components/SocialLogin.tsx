@@ -7,7 +7,7 @@ import Capsule from "@usecapsule/web-sdk";
 
 // Initialize Capsule with staging environment and API key
 const capsule = new Capsule("staging", {
-  apiKey: "pk_test_qwertyuiopasdfghjklzxcvbnm123456"
+  apiKey: "f8f2b99ad7624fb040d82258ae119a4a"
 });
 
 const SocialLogin = () => {
